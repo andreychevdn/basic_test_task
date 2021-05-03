@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
-function App() {
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+import {Users} from "./pages/users";
+import {AlertProvider} from "./components/alert/alertProvider";
+import {UserInfo} from "./pages/userInfo";
+import {USERS, USER_INFO} from "./router/constants";
+
+
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AlertProvider>
+        <CssBaseline />
+        <Router>
+          <Switch>
+            <Redirect exact from="/" to={USERS}/>
+            <Route path={USERS} component={Users}/>
+            <Route path={`${USER_INFO}/:id`} component={UserInfo}/>
+          </Switch>
+        </Router>
+    </AlertProvider>
   );
-}
+};
 
-export default App;
+
